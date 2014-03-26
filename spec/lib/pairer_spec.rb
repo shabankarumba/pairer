@@ -50,4 +50,12 @@ describe Pairer do
       subject.already_paired?(subject.pairs, subject.pairs).should eq true
     end
   end
+
+  describe "#output_the_names" do
+    it "outputs the pairing partners" do
+      subject.names = [ "Dam", "Dan"]
+      subject.pair_people
+      subject.output_the_names.should eq "Dam is pairing with Dan"
+    end
+  end
 end

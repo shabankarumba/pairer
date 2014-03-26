@@ -56,4 +56,12 @@ class Pairer
       pair.count(name) > 1 ? true : false
     end
   end
+
+  def output_the_names
+    partnerships = ""
+    @pairs.map do |pair|
+      partnerships << "#{pair.first} is pairing with #{pair.last}"
+    end
+    partnerships
+  end
 end
