@@ -25,26 +25,13 @@ class Pairer
   end
 
   def pair_people 
-    first = 0
-    second = 1
     unless !even_number_of_people?
       1.upto(@names.count / 2) do
-        pair = @names[first..second] 
+        pair = @names.sample(2)
+        @names - pair.flatten
         @pairs << pair
-        first += 2
-        second += 2
       end
     end
-  end
-  
-  def already_paired?(already_paired, pair_going_in)
-    result = ""
-    already_paired.flatten!.each do |paired|
-      pair_going_in.sort.each do |pair|
-        result = paired == pair ? true : false
-      end
-    end
-    result
   end
 
   def even_number_of_people?
