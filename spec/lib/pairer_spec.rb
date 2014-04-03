@@ -4,15 +4,29 @@ require "./lib/pairer"
 describe Pairer do
   describe "#pair_people" do
     it "returns pairs of people" do
-      subject.should_receive(:pair_people).and_return( [["Kun Wendell", "Jaya Lecce"], ["Sabah Whelan", "Jordan Dimitriou"]] ) 
-      subject.pair_people.should eq [["Kun Wendell", "Jaya Lecce"], ["Sabah Whelan", "Jordan Dimitriou"]]
+      subject.should_receive(:pair_people).and_return([["Sabah Whelan", "Eugeneia Seward"], ["Jaswinder Wood", "Jordan Dimitriou"], ["Kun Wendell", "Karen Cloutier"], ["Boris Vela", "Maria Benini"], ["Sunan Hoffmann", "Jaya Lecce"]])
+      subject.pair_people 
+    end
+
+    it "returns nil if there are only two people left" do
+      subject.names = [ ["Sabah Whelan", "Sabah Whelan"]]
+      subject.pair_people.should eq nil
+    end
+
+    it "randomises the pairs if there are two names in an array of four names" do
+      subject.names = [ "Sabah Whelan", "Sabah Whelan", "Jaswinder Wood", "Jordan Dimitriou" ]
+      subject.should_receive(:pair_people).and_return([["Jordan Dimitriou", "Sabah Whelan"], ["Sabah Whelan", "Jaswinder Wood"]])
+      subject.pair_people
     end
   end
 
-  describe "#randomise_order" do
-    it "randomises the ordder of people" do
-      subject.stub(randomise_order: [ "Jack", "James", "Kim", "Lynn" ])
-      subject.randomise_order
+  describe "#pair_people same name" do
+    before do
+      subject.names = [ "Kun Wendell", "Kun Wendell","Sabah Whelan", "Jordan Dimitriou" ]
+    end
+
+    it "doesn't pair with people with the same name" do
+      subject.pair_people.should eq nil 
     end
   end
 

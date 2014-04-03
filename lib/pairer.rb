@@ -20,16 +20,17 @@ class Pairer
     @pairs = []
   end
 
-  def randomise_order
-    @names.sample
-  end
-
   def pair_people 
     unless !even_number_of_people?
-      1.upto(@names.count / 2) do
-        pair = @names.sample(2)
-        @names - pair.flatten
-        @pairs << pair
+      @names.sample(@names.count).each_slice(2) do |pair|
+        if same_name?(pair) && @names.count >= 4
+          @names.sample(@names.count)
+        elsif same_name?(pair) && @names.count <= 2
+          nil
+        else
+          @names - [pair.flatten]
+          @pairs << pair
+        end
       end
     end
   end
